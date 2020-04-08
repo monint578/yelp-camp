@@ -8,7 +8,7 @@ var express 		= require("express"),
 	passportLocalMongoose = require("passport-local-mongoose"),
 	methodOverrite	= require("method-override");
 
-var	Kruva 	= require("./models/campground"),
+var	Campground 	= require("./models/campground"),
 	seedDB 	= require("./seeds"),
 	Comment = require("./models/comment"),
 	User	= require("./models/user");
@@ -17,8 +17,8 @@ var commentRoutes 	 = require("./routes/comments"),
 	campgroundRoutes = require("./routes/campgrounds"),
 	indexRoutes 	 = require("./routes/index");
 
-// seedDB();
-mongoose.connect("mongodb://localhost/sudu_kruva", {useNewUrlParser: true});
+seedDB();
+mongoose.connect("mongodb+srv://monint:kalakutas69@cluster0-b2nzf.mongodb.net/test?retryWrites=true&w=majority", {useNewUrlParser: true});
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");

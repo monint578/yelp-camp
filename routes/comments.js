@@ -1,12 +1,12 @@
 var express = require("express");
 var router = express.Router({mergeParams: true});
-var Kruva = require("../models/campground");
+var Campground = require("../models/campground");
 var Comment = require("../models/comment");
 var middleware = require("../middleware");
 
 //comments New
 router.get("/new", middleware.isLoggedIn, function(req, res){
-	Kruva.findById(req.params.id, function(err, campground){
+	Campground.findById(req.params.id, function(err, campground){
 		if(err){
 			console.log(err);
 		} else {
@@ -17,7 +17,7 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
 
 //comments create
 router.post("/", middleware.isLoggedIn, function(req, res){
-	Kruva.findById(req.params.id, function(err, campground){
+	Campground.findById(req.params.id, function(err, campground){
 		if(err){
 			console.log(err);
 			res.redirect("/campgrounds");

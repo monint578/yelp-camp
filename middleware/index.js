@@ -1,13 +1,13 @@
 //ALL MIDDLEWARE GOES HERE
 var middlewareObj = {};
-var Kruva = require("../models/campground");
+var Campground = require("../models/campground");
 var Comment = require("../models/comment");
 
 //Campground middleware
 middlewareObj.chechCampgroundOwnership = function(req, res, next) {
 	//is user logged in 
 	if(req.isAuthenticated()){
-		Kruva.findById(req.params.id, function (err, foundCampground){
+		Campground.findById(req.params.id, function (err, foundCampground){
 			if(err){
 				req.flash("error", "Campground not found");
 				res.redirect("back");

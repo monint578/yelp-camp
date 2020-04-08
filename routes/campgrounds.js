@@ -1,10 +1,10 @@
 var express = require("express");
 var router = express.Router();
-var Kruva = require("../models/campground");
+var Campground = require("../models/campground");
 var middleware = require("../middleware");
 
 router.get("/", function(req, res){
-	Kruva.find({}, function(err, allCampgrounds) {
+	Campground.find({}, function(err, allCampgrounds) {
 		if(err){
 			console.log(err);
 		} else {
@@ -25,7 +25,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
 		username: req.user.username
 	};
 	var newCampground = {name: name, image: image, price: price, description: desc, author: author}
-	Kruva.create(newCampground, function(err, newlyCreated){
+	Campground.create(newCampground, function(err, newlyCreated){
 		if(err){
 			console.log(err);
 		} else {
@@ -40,7 +40,7 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
 });
 
 router.get("/:id", function(req, res){
-	Kruva.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
+	Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
 		if(err){
 			console.log(err);
 		} else {
@@ -51,13 +51,13 @@ router.get("/:id", function(req, res){
 
 //EDIT CAMPGROUND ROUTE
 router.get("/:id/edit", middleware.chechCampgroundOwnership, function(req, res){
-	Kruva.findById(req.params.id, function (err, foundCampground){
+	Campground.findById(req.params.id, function (err, foundCampground){
 		res.render("campgrounds/edit", {campground: foundCampground});
 		});
 });
 //UPDATE CAMPGROUD ROUTE
 router.put("/:id", middleware.chechCampgroundOwnership, function(req, res){
-	Kruva.findByIdAndUpdate(req.params.id, req.body.campground, function(err, updatedCampground){
+	Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, updatedCampground){
 		if(err){
 			res.redirect("/campgrounds")
 		} else {
@@ -67,7 +67,7 @@ router.put("/:id", middleware.chechCampgroundOwnership, function(req, res){
 });
 //DELETE CAMPGROUD ROUTE
 router.delete("/:id", middleware.chechCampgroundOwnership, function(req, res){
-	Kruva.findByIdAndRemove(req.params.id, function(err){
+	Campground.findByIdAndRemove(req.params.id, function(err){
 		if(err){
 			res.redirect("/campgrounds");
 		} else {
