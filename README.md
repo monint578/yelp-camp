@@ -10,7 +10,3 @@ This project was created on Udemy course: The Web Developer Bootcamp (https://ww
 * Authentication
 * Login and logout
 * It was deployed using Heroku.
-
-### Building the App
-* npm install
-* npm start
